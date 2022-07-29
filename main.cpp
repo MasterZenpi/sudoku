@@ -19,11 +19,11 @@ int main() {
 	//test when the puzzle is completed if it runs as intended
 
 	Puzzle mainPuzzle;
-	mainPuzzle.instructions();
+	//mainPuzzle.instructions();
 
 	do {
 		
-		mainPuzzle.finishPuzzle();
+		//mainPuzzle.finishPuzzle();
 
 	} while (!mainPuzzle.isPuzzleCompleted());
 

@@ -25,7 +25,7 @@ Puzzle::~Puzzle(void) {
 
 void Puzzle::instructions() {
 	std::cout << "Chose your Difficulty Level: (1)Easy (2)Medium (3)Hard ";
-
+	int userDiff;
 	std::cin >> userDiff;
 
 	while (userDiff > 3) {
@@ -61,14 +61,9 @@ void Puzzle::PrintPuzzle() {
 
 }
 
-bool Puzzle::isRowCompleted() {
-	return true;
-}
-bool Puzzle::isColCompleted() {
-	return true;
-}
+
 bool Puzzle::isPuzzleCompleted() {
-	return true;
+	(this->indx.x.size() >1)? true: false;
 }
 
 void Puzzle::userCordnites() {
@@ -81,14 +76,17 @@ void Puzzle::userCordnites() {
 
 	std::cout << "Please enter x and y coordnites and value. Example: x y value: ";
 	std::cin >> x>> y>> value;
-
+	//if		the x value is found in the x vector				and 		the y value is found in the y vector
 	if ((std::find(indx.x.begin(), indx.x.end(), x)!= indx.x.end()) && (std::find(indx.y.begin(), indx.y.end(), y)!= indx.y.end())) {
  			 // not found
+			 indx.x.push_back(x);
+			 indx.y.push_back(y);
 			 indx.value.push_back(value);
 			} else {
   			// found
-				printf("Oops! the coordnite (%i,%i) has already has a value", x,y);
+				printf("Oops! the coordnite (%i,%i) has already has a value\n", x,y);
 			}//end else
+
 }//end userCordnintes 
 
 void Puzzle::setBlankIndex() {
@@ -97,15 +95,21 @@ void Puzzle::setBlankIndex() {
 	int y;
 	
 	srand(time(NULL));
-	while(indx.x.size() <= this->userDiff)
+	while((this->indx.x.size() <= this->userDiff) && (this->indx.y.size() <= this->userDiff))
 	{
 		x = rand() % 10;
 		y = rand() % 10;
+		if ((std::find(this->indx.x.begin(), this->indx.x.end(), x)) != this->indx.x.end() && (this->indx.x.size() <= this->userDiff))
+			this->indx.x.push_back(x);
 	
+
+		if ((std::find(this->indx.y.begin(), this->indx.y.end(), x)) != this->indx.y.end() && (this->indx.y.size() <= this->userDiff))
+			this->indx.y.push_back(y);
 	}//end while 
 }
 
 void Puzzle::finishPuzzle()
 {
+	this->PrintPuzzle();
 	this->userCordnites();	
 }
