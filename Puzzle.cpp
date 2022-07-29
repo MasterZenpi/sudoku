@@ -78,32 +78,30 @@ void Puzzle::userCordnites() {
 	int x = 0;
 	int y = 0;
 	int value = 0;
-	char throwaway = ' ';
 
 	std::cout << "Please enter x and y coordnites and value. Example: x y value: ";
 	std::cin >> x>> y>> value;
 
-	if (this->indx.find(x) == indx.end()){
-		if(this->indx[x] == value)
-			std::cout << "interted";
-	}//end if
-}
+	if ((std::find(indx.x.begin(), indx.x.end(), x)!= indx.x.end()) && (std::find(indx.y.begin(), indx.y.end(), y)!= indx.y.end())) {
+ 			 // not found
+			 indx.value.push_back(value);
+			} else {
+  			// found
+				printf("Oops! the coordnite (%i,%i) has already has a value", x,y);
+			}//end else
+}//end userCordnintes 
 
 void Puzzle::setBlankIndex() {
+	//this is going to get random values for x and y to be used in printpuzzle to tell where the blanks go
 	int x;
 	int y;
+	
 	srand(time(NULL));
-	while(this->indx.size() <= this->userDiff)
+	while(indx.x.size() <= this->userDiff)
 	{
 		x = rand() % 10;
 		y = rand() % 10;
-		if (this->indx.find(x) == indx.end()) {
- 			 // not found
-			 this->indx.insert(std::pair<int, int>(x, y));
-			} else {
-  			// found
-				continue;
-			}//end else
+	
 	}//end while 
 }
 
