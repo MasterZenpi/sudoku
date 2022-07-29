@@ -63,7 +63,7 @@ void Puzzle::PrintPuzzle() {
 
 
 bool Puzzle::isPuzzleCompleted() {
-	(this->indx.x.size() >1)? true: false;
+	(this->indx.x.size() <1)? true: false;
 }
 
 void Puzzle::userCordnites() {
