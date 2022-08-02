@@ -1,5 +1,6 @@
 #include "Puzzle.h"
 
+
 Puzzle::Puzzle(void) {
 	std::cout << "Welcome to Sudoku" << std::endl;
 		//these next lines will fill out the 2d puzzle array for the game 
@@ -36,13 +37,13 @@ void Puzzle::instructions() {
 
 	switch(userDiff){
 		case 1:
-			userDiff *= 3;
+			userDiff *= easy;
 			break;
 		case 2:
-			userDiff *= 6;
+			userDiff *= medium;
 			break;
 		case 3:
-			userDiff *= 9;
+			userDiff *= hard;
 			break;
 	}
 	this->userDiff = userDiff;
@@ -63,12 +64,10 @@ void Puzzle::PrintPuzzle() {
 
 
 bool Puzzle::isPuzzleCompleted() {
-	(this->indx.x.size() <1)? true: false;
+	 return (this->indx.x.size() <1)? true: false;
 }
 
 void Puzzle::userCordnites() {
-	//this is going to ask the user to enter coordinates (as a string) then it will be split into ints.
-	// input should be "(x,y) value"
 	
 	int x = 0;
 	int y = 0;
