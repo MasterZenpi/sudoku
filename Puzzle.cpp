@@ -25,8 +25,8 @@ Puzzle::~Puzzle(void) {
 }
 
 void Puzzle::instructions() {
-	std::cout << "Chose your Difficulty Level: (1)Easy (2)Medium (3)Hard ";
 	int userDiff;
+	std::cout << "Chose your Difficulty Level: (1)Easy (2)Medium (3)Hard ";
 	std::cin >> userDiff;
 
 	while (userDiff > 3) {
@@ -47,6 +47,7 @@ void Puzzle::instructions() {
 			break;
 	}
 	this->userDiff = userDiff;
+	//this->setBlankIndex();
 }
 
 void Puzzle::PrintPuzzle() {
@@ -64,7 +65,7 @@ void Puzzle::PrintPuzzle() {
 
 
 bool Puzzle::isPuzzleCompleted() {
-	 return (this->indx.x.size() <1)? true: false;
+	 return (this->x.size() <1)? true: false;
 }
 
 void Puzzle::userCordnites() {
@@ -76,11 +77,11 @@ void Puzzle::userCordnites() {
 	std::cout << "Please enter x and y coordnites and value. Example: x y value: ";
 	std::cin >> x>> y>> value;
 	//if		the x value is found in the x vector				and 		the y value is found in the y vector
-	if ((std::find(indx.x.begin(), indx.x.end(), x)!= indx.x.end()) && (std::find(indx.y.begin(), indx.y.end(), y)!= indx.y.end())) {
+	if ((std::find(this->x.begin(), this->x.end(), x)!= this->x.end()) && (std::find(this->y.begin(), this->y.end(), y)!= this->y.end())) {
  			 // not found
-			 indx.x.push_back(x);
-			 indx.y.push_back(y);
-			 indx.value.push_back(value);
+			 this->x.push_back(x);
+			 this->y.push_back(y);
+			 this->value.push_back(value);
 			} else {
   			// found
 				printf("Oops! the coordnite (%i,%i) has already has a value\n", x,y);
@@ -93,22 +94,11 @@ void Puzzle::setBlankIndex() {
 	int x;
 	int y;
 	
-	srand(time(NULL));
-	while((this->indx.x.size() <= this->userDiff) && (this->indx.y.size() <= this->userDiff))
-	{
-		x = rand() % 10;
-		y = rand() % 10;
-		if ((std::find(this->indx.x.begin(), this->indx.x.end(), x)) != this->indx.x.end() && (this->indx.x.size() <= this->userDiff))
-			this->indx.x.push_back(x);
-	
-
-		if ((std::find(this->indx.y.begin(), this->indx.y.end(), x)) != this->indx.y.end() && (this->indx.y.size() <= this->userDiff))
-			this->indx.y.push_back(y);
-	}//end while 
 }
 
 void Puzzle::finishPuzzle()
 {
 	this->PrintPuzzle();
-	this->userCordnites();	
+	this->userCordnites();
+		
 }
