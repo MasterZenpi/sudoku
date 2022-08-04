@@ -5,7 +5,7 @@
 #include <Time.h>
 #include <iostream>
 #include <random>
-#include <algorithm>
+#include <utility>
 
 const int GRID_SIZE = 9;
 const int easy = 3;

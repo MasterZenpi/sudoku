@@ -47,7 +47,7 @@ void Puzzle::instructions() {
 			break;
 	}
 	this->userDiff = userDiff;
-	//this->setBlankIndex();
+	this->setBlankIndex();
 }
 
 void Puzzle::PrintPuzzle() {
@@ -94,6 +94,12 @@ void Puzzle::setBlankIndex() {
 	int x;
 	int y;
 	
+	while((this->x.size() < this->userDiff) && (this->y.size() < this->userDiff)){
+		x = rand() % 10;
+		y = rand() % 10;
+		this->x.push_back(x);
+		this->y.push_back(y);
+	}
 }
 
 void Puzzle::finishPuzzle()
