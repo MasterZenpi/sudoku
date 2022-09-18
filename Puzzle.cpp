@@ -2,6 +2,7 @@
 
 
 Puzzle::Puzzle(void) {
+
 	std::cout << "Welcome to Sudoku" << std::endl;
 		//these next lines will fill out the 2d puzzle array for the game 
 		//variable initiaztion
@@ -56,6 +57,7 @@ void Puzzle::PrintPuzzle() {
 	//prints the puzzle 
 	for (int row = 0; row < 9; row++) {
 		for (int col = 0; col < 9; col++) {
+			
 			std::cout << puzzle[row][col] << " ";
 		}
 		std::cout << std::endl;
@@ -65,7 +67,7 @@ void Puzzle::PrintPuzzle() {
 
 
 bool Puzzle::isPuzzleCompleted() {
-	 return (this->x.size() <1)? true: false;
+	 return (this->value.size() <1)? true: false;
 }
 
 void Puzzle::userCordnites() {
@@ -74,14 +76,13 @@ void Puzzle::userCordnites() {
 	int y = 0;
 	int value = 0;
 
-	std::cout << "Please enter x and y coordnites and value. Example: x y value: ";
+	std::cout << "Please enter x and y coordnites and value. Example: \"x y value\":";
 	std::cin >> x>> y>> value;
-	//if		the x value is found in the x vector				and 		the y value is found in the y vector
-	if ((std::find(this->x.begin(), this->x.end(), x)!= this->x.end()) && (std::find(this->y.begin(), this->y.end(), y)!= this->y.end())) {
+	int index = GRID_SIZE* x - (GRID_SIZE - y);
+	
+	if ((std::find(this->value.begin(), this->value.end(), index))!= this->value.end()) {
  			 // not found
-			 this->x.push_back(x);
-			 this->y.push_back(y);
-			 this->value.push_back(value);
+			 this->value.erase(std::remove(this->value.begin(), this->value.end(), index), this->value.end());
 			} else {
   			// found
 				printf("Oops! the coordnite (%i,%i) has already has a value\n", x,y);
@@ -90,17 +91,18 @@ void Puzzle::userCordnites() {
 }//end userCordnintes 
 
 void Puzzle::setBlankIndex() {
-	//this is going to get random values for x and y to be used in printpuzzle to tell where the blanks go
-	int x;
-	int y;
+	// a random number from 1-81 will be generated and that number wil be used to determine the x and y values.
+	srand(time(0));
+	int random;
+
+	for(int i = 0; i < 3* userDiff; i++)
+	{
+		random = (rand()%81) +1;
+		if((std::find(this->value.begin(), this->value.end(), random)) != this->value.end())
+			value.push_back(random);
+	}//end for
 	
-	while((this->x.size() < this->userDiff) && (this->y.size() < this->userDiff)){
-		x = rand() % 10;
-		y = rand() % 10;
-		this->x.push_back(x);
-		this->y.push_back(y);
-	}
-}
+}//end setBlankIndex
 
 void Puzzle::finishPuzzle()
 {
