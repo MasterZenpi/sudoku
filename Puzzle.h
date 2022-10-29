@@ -19,7 +19,9 @@ private:
 	int userDiff;
 	int puzzle[GRID_SIZE][GRID_SIZE];
 
-	std::vector<int>value;	// this will be where all the blank spots are located	
+	std::vector<int>value;	// this will be where all the blank spots are located
+							// to get the the value into index, divide the number by 9 and the whole number is the row
+							// and the remainder is the column	
 	
 	
 public:

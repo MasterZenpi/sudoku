@@ -19,6 +19,7 @@ Puzzle::Puzzle(void) {
 		}
 		
 	}
+	
 }
 
 Puzzle::~Puzzle(void) {
@@ -54,14 +55,18 @@ void Puzzle::instructions() {
 void Puzzle::PrintPuzzle() {
 	//***TO-DO***
 	//print the blanks from this function. the positions of the blanks will be in the map variable 
-	//prints the puzzle 
+	//prints the puzzle
+	int index = 0; 
 	for (int row = 0; row < 9; row++) {
 		for (int col = 0; col < 9; col++) {
-			
+			index = (row* GRID_SIZE) + col;
+			if((std::find(this->value.begin(), this->value.end(), index)) != this->value.end())
+				std::cout << "  ";			
+			else
 			std::cout << puzzle[row][col] << " ";
-		}
+		}// end inner loop
 		std::cout << std::endl;
-	}
+	}//end outter loop
 
 }
 
@@ -77,15 +82,16 @@ void Puzzle::userCordnites() {
 	int value = 0;
 
 	std::cout << "Please enter x and y coordnites and value. Example: \"x y value\":";
-	std::cin >> x>> y>> value;
-	int index = GRID_SIZE* x - (GRID_SIZE - y);
+	std::cin >> x>> y>> value; 
+	int index = GRID_SIZE* x + (GRID_SIZE + y);
 	
 	if ((std::find(this->value.begin(), this->value.end(), index))!= this->value.end()) {
- 			 // not found
+ 			 // index not found
 			 this->value.erase(std::remove(this->value.begin(), this->value.end(), index), this->value.end());
+			 std::cout << "Value " << value << " has been placed in position " << x << y << std::endl;
 			} else {
-  			// found
-				printf("Oops! the coordnite (%i,%i) has already has a value\n", x,y);
+  			// index found
+				printf("Oops! the coordnite (%i,%i) has already has a value of %i\n", x,y,puzzle[x][y]);
 			}//end else
 
 }//end userCordnintes 
@@ -99,6 +105,8 @@ void Puzzle::setBlankIndex() {
 	{
 		random = (rand()%81) +1;
 		if((std::find(this->value.begin(), this->value.end(), random)) != this->value.end())
+			continue;
+		else 
 			value.push_back(random);
 	}//end for
 	
